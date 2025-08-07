@@ -11,8 +11,12 @@ export const pokemonApi = createApi({
   tagTypes: ['Pokemon', 'PokemonList'],
   endpoints: (builder) => ({
     getPokemonList: builder.query<PokemonListResponse, { limit?: number; offset?: number }>({
-      query: ({ limit = 20, offset = 0 } = {}) => `/pokemon?limit=${limit}&offset=${offset}`,
-      transformResponse: (paginatedList) => mapPokemonPaginatedList(paginatedList),
+      query: ({ limit = 20, offset = 0 }) => ({
+        url: '/pokemon',
+        params: { offset, limit },
+        method: 'GET',
+      }),
+      transformResponse: (paginatedList, _, args) => mapPokemonPaginatedList(paginatedList, args.offset),
       providesTags: ['PokemonList'],
     }),
     getPokemonDetail: builder.query<PokemonDetailsData, string>({

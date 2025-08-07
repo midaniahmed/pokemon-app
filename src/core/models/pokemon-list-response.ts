@@ -3,14 +3,14 @@ import { mapToPokemonSummary, type PokemonSummary } from './pokemon-summary.mode
 export interface PokemonListResponse {
   totalCount: number;
   list: PokemonSummary[];
-  next?: string | null;
-  previous?: string | null;
+  hasMore?: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function mapPokemonPaginatedList(data: any): PokemonListResponse {
+export function mapPokemonPaginatedList(data: any, offset = 0): PokemonListResponse {
   return {
     totalCount: data.count,
     list: (data.results || []).map(mapToPokemonSummary),
+    hasMore: data.count >= offset,
   };
 }

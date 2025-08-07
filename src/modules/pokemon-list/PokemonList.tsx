@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { parseErrorMessage, useGetPokemonListQuery } from '../../core/services';
-import { Modal, PageTemplate } from '../shared';
+import { Button, Modal, PageTemplate } from '../shared';
 import { PokemonCard } from './PokemonCard';
 import { PokemonDetails } from '../pokemon-details/PokemonDetails';
 import type { PokemonDetailsData } from '../../core/models';
@@ -10,14 +10,21 @@ export interface PokemonListProps {
   selectedName: string | null;
 }
 
+const LIMIT = 40;
 export const PokemonList: React.FC = () => {
+  const [queryArgs, setQueryArgs] = useState({ limit: LIMIT, offset: 0 });
+
   const [isOpen, setOpenModal] = useState(false);
   const [pokemonDetails, setPokemonDetails] = useState<PokemonDetailsData | undefined>(undefined);
-  const { data, isLoading, isError, error } = useGetPokemonListQuery({ limit: 50 });
+  const { data, isLoading, isError, error, isFetching } = useGetPokemonListQuery(queryArgs);
 
   const handleClickPokemon = (pokemon: PokemonDetailsData) => {
     setOpenModal(true);
     setPokemonDetails(pokemon);
+  };
+
+  const loadMore = async () => {
+    setQueryArgs((prev) => ({ ...prev, offset: prev.offset + LIMIT }));
   };
 
   return (
@@ -38,12 +45,15 @@ export const PokemonList: React.FC = () => {
           </div>
         ))}
       </div>
+
+      <div className="mt-8 flex items-center justify-center">
+        <Button onClick={loadMore} disabled={isFetching || !data?.hasMore} size="lg">
+          {isFetching ? 'Loading...' : data?.hasMore ? 'Next Page' : 'No more Pokémon'}
+        </Button>
+      </div>
       <Modal isOpen={isOpen} onClose={() => setOpenModal(false)}>
         <PokemonDetails pokemon={pokemonDetails} />
       </Modal>
     </PageTemplate>
   );
 };
-
-// tests
-// read.me

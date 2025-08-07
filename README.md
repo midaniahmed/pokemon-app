@@ -6,7 +6,7 @@ A React application built with TypeScript, Redux Toolkit, and RTK Query that all
 
 - 📋 Browse a list of Pokemon from the PokeAPI
 - 🔍 View detailed information about each Pokemon
-- 💾 Persistent storage using localStorage
+- 💾 Persistent storage using redux-persist
 - 🔄 State management with Redux Toolkit
 - 🌐 API integration with RTK Query
 - ✅ Comprehensive unit and integration tests (60%+ coverage)
@@ -16,8 +16,8 @@ A React application built with TypeScript, Redux Toolkit, and RTK Query that all
 
 - **Frontend**: React 18, Next.js 14, TypeScript
 - **State Management**: Redux Toolkit, RTK Query
-- **Styling**: Tailwind CSS, shadcn/ui components
-- **Testing**: Jest, React Testing Library
+- **Styling**: Tailwind CSS
+- **Testing**: Vitest, React Testing Library
 - **API**: PokeAPI (https://pokeapi.co/)
 
 ## Prerequisites
@@ -28,80 +28,56 @@ A React application built with TypeScript, Redux Toolkit, and RTK Query that all
 ## Installation
 
 1. Clone the repository:
-   \`\`\`bash
-   git clone <repository-url>
-   cd pokemon-explorer
-   \`\`\`
+   ```bash
+   git clone https://github.com/midaniahmed/pokemon-app.git
+   cd pokemon-app
+   ```
 
 2. Install dependencies:
-   \`\`\`bash
+   ```bash
    npm install
-   \`\`\`
+   ```
 
 3. Create environment file:
-   \`\`\`bash
-   cp .env.example .env.local
-   \`\`\`
+   ```bash
+   cp .env.example .env
+   ```
 
-4. Configure the API URL in \`.env.local\`:
-   \`\`\`env
-   NEXT_PUBLIC_POKEMON_API_URL=https://pokeapi.co/api/v2
-   \`\`\`
+4. Configure the API URL in \`.env\`:
+   ```env
+   VITE_BASE_API_URL=https://pokeapi.co/api/v2
+   ```
 
 ## Running the Application
 
 ### Development Mode
 
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 The application will be available at http://localhost:3000
 
 ### Production Build
 
-\`\`\`bash
+```bash
 npm run build
 npm start
-\`\`\`
-
-### Configurable API URLs
-
-You can configure different API base URLs by setting the \`NEXT_PUBLIC_POKEMON_API_URL\` environment variable:
-
-**For development:**
-\`\`\`bash
-NEXT_PUBLIC_POKEMON_API_URL=https://pokeapi.co/api/v2 npm run dev
-\`\`\`
-
-**For staging:**
-\`\`\`bash
-NEXT_PUBLIC_POKEMON_API_URL=https://pokeapi-staging.example.com/api/v2 npm run dev
-\`\`\`
-
-**For production:**
-\`\`\`bash
-NEXT_PUBLIC_POKEMON_API_URL=https://pokeapi-prod.example.com/api/v2 npm run build
-\`\`\`
+```
 
 ## Testing
 
 ### Run Tests
 
-\`\`\`bash
+```bash
 npm test
-\`\`\`
+```
 
-### Run Tests in Watch Mode
-
-\`\`\`bash
-npm run test:watch
-\`\`\`
 
 ### Generate Coverage Report
 
-\`\`\`bash
-npm run test:coverage
-\`\`\`
+```bash
+npm run coverage
+```
 
 The application maintains **60%+ test coverage** across:
 
@@ -112,33 +88,42 @@ The application maintains **60%+ test coverage** across:
 
 ## Project Structure
 
-\`\`\`
-pokemon-explorer/
-├── app/ # Next.js app directory
-│ ├── globals.css # Global styles
-│ ├── layout.tsx # Root layout
-│ └── page.tsx # Home page
-├── components/ # React components
-│ ├── ui/ # shadcn/ui components
-│ ├── pokemon-app.tsx # Main app component
-│ ├── pokemon-list.tsx # Pokemon list component
-│ └── pokemon-details.tsx # Pokemon details component
-├── lib/ # Utilities and configuration
-│ ├── api/ # RTK Query API definitions
-│ ├── slices/ # Redux slices
-│ ├── hooks.ts # Custom Redux hooks
-│ ├── store.ts # Redux store configuration
-│ └── utils.ts # Utility functions
-├── types/ # TypeScript type definitions
-│ └── pokemon.ts # Pokemon-related types
-├── **tests**/ # Test files
-│ ├── components/ # Component tests
-│ └── lib/ # Library tests
-├── .env.example # Environment variables template
-├── jest.config.js # Jest configuration
-├── jest.setup.js # Jest setup file
-└── README.md # This file
-\`\`\`
+```
+project-root/
+├── public/
+├── src/
+│   ├── __tests__/
+│   ├── assets/
+│   ├── core/
+│   │   ├── constants/
+│   │   ├── hooks/
+│   │   ├── models/
+│   │   ├── services/
+│   │   └── utils/
+│   ├── modules/
+│   │   ├── layout/
+│   │   ├── pokemon-details/
+│   │   ├── pokemon-list/
+│   │   └── shared/
+│   ├── store/
+│   ├── App.tsx
+│   ├── index.css
+│   ├── main.tsx
+│   └── vite-env.d.ts
+├── .env
+├── .env.example
+├── .gitignore
+├── eslint.config.js
+├── index.html
+├── package-lock.json
+├── package.json
+├── README.md
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+├── vite.config.ts
+└── vitest.config.ts
+```
 
 ## Key Features Explained
 
@@ -161,57 +146,6 @@ pokemon-explorer/
 - **User Interaction Tests**: Click events and user flows
 - **Coverage**: Maintains 60%+ code coverage
 
-### API Configuration
-
-The application supports multiple API environments through environment variables:
-
-- Development: Local or development API
-- Staging: Staging environment API
-- Production: Production API
-
-## Available Scripts
-
-- \`npm run dev\` - Start development server
-- \`npm run build\` - Build for production
-- \`npm start\` - Start production server
-- \`npm test\` - Run tests once
-- \`npm run test:watch\` - Run tests in watch mode
-- \`npm run test:coverage\` - Generate coverage report
-- \`npm run lint\` - Run ESLint
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch: \`git checkout -b feature/new-feature\`
-3. Make your changes and add tests
-4. Ensure tests pass: \`npm test\`
-5. Commit your changes: \`git commit -m 'Add new feature'\`
-6. Push to the branch: \`git push origin feature/new-feature\`
-7. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License.
-
-## API Reference
-
-This application uses the [PokeAPI](https://pokeapi.co/) for Pokemon data with the following specific endpoints:
-
-### Endpoints Used:
-
-- **GET** `https://pokeapi.co/api/v2/pokemon/` - Get Pokemon list
-  - Query parameters: `?limit=20` to limit results
-  - Returns: List of Pokemon with names and URLs
-- **GET** `https://pokeapi.co/api/v2/pokemon/{id}/` - Get Pokemon details by ID
-  - Example: `https://pokeapi.co/api/v2/pokemon/1/` (Bulbasaur)
-  - Returns: Complete Pokemon data including stats, types, abilities, sprites
-
-### API Configuration
-
-The base URL can be configured via environment variable:
-\`\`\`env
-NEXT_PUBLIC_POKEMON_API_URL=https://pokeapi.co/api/v2
-\`\`\`
 
 ### Data Flow:
 

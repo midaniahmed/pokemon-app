@@ -4,3 +4,4 @@ export * from './PageTemplate';
 export * from './Card';
 export * from './Modal';
 export * from './Tag';
+export * from './Button';
