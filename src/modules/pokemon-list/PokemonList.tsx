@@ -45,8 +45,5 @@ export const PokemonList: React.FC = () => {
   );
 };
 
-// // redux RTK query
-// // modal
-// redux-persist
 // tests
 // read.me

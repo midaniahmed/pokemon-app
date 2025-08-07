@@ -1,6 +1,6 @@
 import { Container } from './modules/layout/Container';
 import { Header } from './modules/layout/Header';
-import { PokemonList } from './modules/pokemon-list/PkemonList';
+import { PokemonList } from './modules/pokemon-list/PokemonList';
 
 function App() {
   return (
